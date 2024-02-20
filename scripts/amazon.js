@@ -1,4 +1,4 @@
-const products = [{
+/*const products = [{
   image: "images/products/athletic-cotton-socks-6-pairs.jpg",
   name:"Black and Gray Athletic Cotton Socks - 6 Pairs",
   rating:{
@@ -23,7 +23,18 @@ const products = [{
   },
   priceCents:799
 
-}];
+},
+{
+  image:"images/products/black-2-slot-toaster.jpg",
+  name:"2 Slot Toaster - Black",
+  rating:{
+    stars:5,
+    counts:2197
+  },
+  priceCents:1899
+},{
+  image:""
+}];*/
 let productsHtml = '';
 
 products.forEach((product)=>{
