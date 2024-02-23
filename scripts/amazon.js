@@ -35,6 +35,9 @@
 },{
   image:""
 }];*/
+
+import {cart,addToCart} from "../data/CART.JS";
+import { products } from "../data/products.js";
 let productsHtml = '';
 
 products.forEach((product)=>{
@@ -61,7 +64,7 @@ products.forEach((product)=>{
     </div>
 
     <div class="product-quantity-container">
-      <select>
+      <select class="js-quantity-selector-${product.id}">
         <option selected value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -76,11 +79,12 @@ products.forEach((product)=>{
     </div>
 
     <div class="product-spacer"></div>
-
-    <div class="added-to-cart">
+    
+    <div class="added-to-cart js-added-to-cart-${product.id}">
       <img src="images/icons/checkmark.png">
       Added
     </div>
+    
 
     <button class="add-to-cart-button button-primary  js-add-to-cart" 
     data-product-id="${product.id}">
@@ -94,42 +98,36 @@ products.forEach((product)=>{
 document.querySelector('.js-products-grid').innerHTML = productsHtml;
 
 
-// for add to cart  button
-document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
-    button.addEventListener('click',()=>{
-      // data attribute from add to cart button
-      const productId=button.dataset.productName;
-      
-      /*checking iteam already in cart or not if there it is added to 
-      matchinIteam and increaing its quantity*/
-      
-      let matchingIteam;
-      cart.forEach((iteam) =>{
-        if(productId === iteam.productId){
-          matchingIteam = iteam;
-
-        }
-      })
-
-      if(matchingIteam){
-        matchingIteam.quantity+=1
-      }
-      else{
-        cart.push({
-          productId: productId,
-          quantity:1
-        });
-      }
 
 
-      //---calculating total quantity from cart array
-      let cartQuantity = 0;
+function cartQuantity(productId){
+  let cartQuantity=0;
       cart.forEach((iteam) =>{
         cartQuantity+=iteam.quantity
       });
       console.log(cartQuantity)
          
       document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-      console.log(cart)
+      console.log(cart);
+
+      const message = document.querySelector(`.js-added-to-cart-${productId}`);
+      message.classList.add('added-to-cart-visible');
+
+      setTimeout(()=>{
+        message.classList.remove('added-to-cart-visible');
+      },2000)
+}
+// for add to cart  button
+document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
+    button.addEventListener('click',()=>{
+      // data attribute from add to cart button
+      const {productId}=button.dataset;
+      
+      addToCart(productId);
+
+      cartQuantity(productId);
+      //---calculating total quantity from cart array    
     });
   });
+
+  
