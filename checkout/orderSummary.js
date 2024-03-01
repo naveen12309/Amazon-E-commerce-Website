@@ -181,7 +181,7 @@ export function renderOrderSummary(){
   console.log(cart);
 
 
-  //------delivery option-------------------------
+  //------ update-delivery option-------------------------
   document.querySelectorAll('.js-delivery-option')
   .forEach((element)=>{
     element.addEventListener('click',()=>{
